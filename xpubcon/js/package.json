@@ -1,0 +1,42 @@
+{
+  "name": "prefix",
+  "version": "2.1.2",
+  "description": "A straightforward implementation of extended public key version conversion",
+  "keywords": [],
+  "homepage": "https://github.com/jlopp/xpub-converter",
+  "bugs": {
+    "url": "https://github.com/jlopp/xpub-converter/issues"
+  },
+  "license": "MIT",
+  "author": "Jameson Lopp",
+  "files": [
+    "index.js",
+    "base.js"
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jlopp/xpub-converter.git"
+  },
+  "scripts": {
+    "coverage-report": "nyc report --reporter=lcov",
+    "coverage": "nyc --check-coverage --branches 90 --functions 90 npm run unit",
+    "standard": "standard",
+    "test": "npm run standard && npm run coverage",
+    "unit": "tape test/*.js"
+  },
+  "dependencies": {
+    "@bitcoin-js/tiny-secp256k1-asmjs": "^2.2.4",
+    "bip32": "^5.0.1",
+    "bs58check": "^2.1.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.2",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-react": "^7.23.2",
+    "babelify": "^10.0.0",
+    "esmify": "^0.1.2"
+  }
+}
