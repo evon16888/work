@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Navigation | 网页收藏</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-hover: rgba(51, 65, 85, 0.8);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #38bdf8;
+            --border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.12) 0px, transparent 50%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            max-width: 600px;
+        }
+
+        header h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        main {
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            backdrop-filter: blur(12px);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card:hover {
+            background-color: var(--card-hover);
+            border-color: rgba(56, 189, 248, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        }
+
+        .icon-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .icon-box img {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .info h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .info p {
+            font-size: 0.825rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        footer {
+            margin-top: auto;
+            padding-top: 4rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 2.5rem 1rem;
+            }
+            header h1 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Personal Workspace</h1>
+        <p>精选常用高效工具与高频访问站点</p>
+    </header>
+
+    <main>
+        <div class="grid-container">
+            <!-- 1. GitHub -->
+            <a href="https://evon16888.github.io/aestools/" target="_blank" class="card">
+                <div class="icon-box">
+                    <img src="https://www.google.com/s2/favicons?domain=github.com&sz=64" alt="GitHub">
+                </div>
+                <div class="info">
+                    <h2>AES加密解密工具</h2>
+                    <p>基于 Gemini生成 纯 HTML 代码</p>
+                </div>
+            </a>
+
+            <!-- 2. ChatGPT -->
+            <a href="https://chatgpt.com" target="_blank" class="card">
+                <div class="icon-box">
+                    <img src="https://www.google.com/s2/favicons?domain=chatgpt.com&sz=64" alt="ChatGPT">
+                </div>
+                <div class="info">
+                    <h2>ChatGPT</h2>
+                    <p>AI 对话与智能助手</p>
+                </div>
+            </a>
+
+            <!-- 3. Google -->
+            <a href="https://google.com" target="_blank" class="card">
+                <div class="icon-box">
+                    <img src="https://www.google.com/s2/favicons?domain=google.com&sz=64" alt="Google">
+                </div>
+                <div class="info">
+                    <h2>Google</h2>
+                    <p>全球最大的搜索引擎</p>
+                </div>
+            </a>
+
+            <!-- 4. TradingView -->
+            <a href="https://www.tradingview.com" target="_blank" class="card">
+                <div class="icon-box">
+                    <img src="https://www.google.com/s2/favicons?domain=tradingview.com&sz=64" alt="TradingView">
+                </div>
+                <div class="info">
+                    <h2>TradingView</h2>
+                    <p>金融行情图表与分析工具</p>
+                </div>
+            </a>
+
+            <!-- 5. V2EX -->
+            <a href="https://v2ex.com" target="_blank" class="card">
+                <div class="icon-box">
+                    <img src="https://www.google.com/s2/favicons?domain=v2ex.com&sz=64" alt="V2EX">
+                </div>
+                <div class="info">
+                    <h2>V2EX</h2>
+                    <p>创意工作者与程序员社区</p>
+                </div>
+            </a>
+
+            <!-- 6. YouTube -->
+            <a href="https://youtube.com" target="_blank" class="card">
+                <div class="icon-box">
+                    <img src="https://www.google.com/s2/favicons?domain=youtube.com&sz=64" alt="YouTube">
+                </div>
+                <div class="info">
+                    <h2>YouTube</h2>
+                    <p>全球视频内容与学习资源</p>
+                </div>
+            </a>
+
+            <!-- 7. Notion -->
+            <a href="https://notion.so" target="_blank" class="card">
+                <div class="icon-box">
+                    <img src="https://www.google.com/s2/favicons?domain=notion.so&sz=64" alt="Notion">
+                </div>
+                <div class="info">
+                    <h2>Notion</h2>
+                    <p>多合一笔记与知识库搭建</p>
+                </div>
+            </a>
+
+            <!-- 8. Figma -->
+            <a href="https://figma.com" target="_blank" class="card">
+                <div class="icon-box">
+                    <img src="https://www.google.com/s2/favicons?domain=figma.com&sz=64" alt="Figma">
+                </div>
+                <div class="info">
+                    <h2>Figma</h2>
+                    <p>云端 UI/UX 设计协作平台</p>
+                </div>
+            </a>
+
+            <!-- 9. Vercel -->
+            <a href="https://vercel.com" target="_blank" class="card">
+                <div class="icon-box">
+                    <img src="https://www.google.com/s2/favicons?domain=vercel.com&sz=64" alt="Vercel">
+                </div>
+                <div class="info">
+                    <h2>Vercel</h2>
+                    <p>前端轻量化部署与托管</p>
+                </div>
+            </a>
+
+            <!-- 10. Linux.do -->
+            <a href="https://linux.do" target="_blank" class="card">
+                <div class="icon-box">
+                    <img src="https://www.google.com/s2/favicons?domain=linux.do&sz=64" alt="Linux Do">
+                </div>
+                <div class="info">
+                    <h2>Linux Do</h2>
+                    <p>真诚、开放的技术交流社区</p>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Personal Dashboard. Built with Modern CSS.</p>
+    </footer>
+
+</body>
+</html>
