@@ -1,0 +1,58 @@
+//@version=5
+strategy("BTC Weekly EMA55 (3-Bar) + RSI + 15% Stop Loss", overlay=true, initial_capital=10000, default_qty_type=strategy.percent_of_equity, default_qty_value=100)
+
+// ==================== 参数设置 ====================
+emaLength   = input.int(55, title="EMA 周期", minval=1)
+rsiLength   = input.int(14, title="RSI 周期", minval=1)
+rsiOversold = input.int(30, title="RSI 超卖平空线", minval=1, maxval=50)
+stopLossPct = input.float(15.0, title="止损比例 (%)", minval=0.1, step=0.5) / 100
+
+// ==================== 指标计算 ====================
+ema55 = ta.ema(close, emaLength)
+rsi   = ta.rsi(close, rsiLength)
+
+// ==================== 状态追踪 ====================
+// 记录在当前下跌趋势中，空头是否已经因为 RSI 超卖而离场过
+var bool shortExitedByRsi = false
+
+// 连续 3 根 K 线收盘价都在 EMA55 之上/之下
+isAboveEma = (close > ema55) and (close[1] > ema55[1]) and (close[2] > ema55[2])
+isBelowEma = (close < ema55) and (close[1] < ema55[1]) and (close[2] < ema55[2])
+
+// 当价格重置回到连续 3 根在 EMA55 上方时，重置“RSI超卖平空”的状态锁
+if (isAboveEma)
+    shortExitedByRsi := false
+
+// ==================== 交易条件 ====================
+// 做多条件：连续 3 根站上 EMA55
+longCondition = isAboveEma
+
+// 做空条件：连续 3 根跌破 EMA55 + 且当前趋势内“从未”触发过 RSI 超卖平空
+shortCondition = isBelowEma and not shortExitedByRsi
+
+// RSI 跌破 30 超卖（且当前持有空单）
+rsiExitShort = (rsi < rsiOversold) and (strategy.position_size < 0)
+
+// ==================== 执行逻辑 ====================
+// 1. 连续 3 根站上 EMA55：平空做多
+if (longCondition)
+    strategy.entry("Long", strategy.long)
+
+// 2. 连续 3 根跌破 EMA55 (且未被锁住)：平多做空
+if (shortCondition)
+    strategy.entry("Short", strategy.short)
+
+// 3. 当 RSI < 30 时：平空，并将状态锁设为 true（彻底锁定，直到重新 3 根站上 EMA55 才解锁）
+if (rsiExitShort)
+    strategy.close("Short", comment="RSI 超卖平空")
+    shortExitedByRsi := true
+
+// 4. 15% 固定止损设置（多单与空单均生效）
+strategy.exit("Long SL", from_entry="Long", loss=close * stopLossPct / syminfo.mintick)
+strategy.exit("Short SL", from_entry="Short", loss=close * stopLossPct / syminfo.mintick)
+
+// ==================== 图表绘制 ====================
+plot(ema55, title="EMA 55", color=color.yellow, linewidth=2)
+
+// 图表标注
+plotshape(rsiExitShort, title="RSI 平空信号", location=location.belowbar, color=color.green, style=shape.labelup, text="RSI平空")
